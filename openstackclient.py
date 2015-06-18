@@ -79,6 +79,7 @@ class CCloud(object):
 				headers={'content-type':'application/json', 'X-Auth-Token':token})
 
 		data = json.loads(content)
+		print "\n\n", data, "\n\n"
 		return data
 
 	def delete_instance(self, server_id, token):
