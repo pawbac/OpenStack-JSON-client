@@ -1,3 +1,7 @@
-*.py~
-README.md
+*
+
+!*/
+!.gitignore
+!*.py
+!*.ini
 
