@@ -24,26 +24,26 @@ class CCloud(object):
     def get_tokens(self):
         h = httplib2.Http()
 
-        resp, content = h.request(self.config.get('test', 'tokensUrl'),
-                                  "POST", body='{"auth":{"passwordCredentials":{"username": "' +
-                                  self.config.get('test', 'tenantUsername') + '", "password":"' + \
-                                  self.config.get('test', 'tenantPassword') + '"}, "tenantName":"' + \
-                                  self.config.get('test', 'tenantUsername') + '"}}', headers={'content-type':'application/json'})
+        resp, content = h.request(self.config.get('test', 'tokensUrlV3'),
+                                  "POST", body='{"auth": {"identity": {"methods": ["password"],"password": {"user": {"id":"' +
+                                  self.config.get('test', 'userID') + '","password": "' +
+                                  self.config.get('test', 'tenantPassword') + '"}}}}}',
+                                  headers={'content-type':'application/json'})
 
-        data = json.loads(content)
-        return data['access']['token']['id']
+        #data = json.loads(content)
+        return content
 
     def list_instances(self, token):
-        request_url = self.config.get('test', "computeApi") + self.config.get('test', "tenantId") + '/servers/detail?all_tenants=1'
+        request_url = self.config.get('test', "computeApiV21") + self.config.get('test', "tenantId")
         h = httplib2.Http()
 
         resp, content = h.request(request_url,
                                   "GET", headers={'X-Auth-Token':token})
-
+        print content
         # Returns intacnces or error description
         if resp['status'] == '200' or resp['status'] == '203':
-            data = json.loads(content)
-            return data
+            content = json.loads(content)
+            return content
         else:
             return content
 

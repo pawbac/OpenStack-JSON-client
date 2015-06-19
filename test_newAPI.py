@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from openstackclient import CCloud
+from openstackclient_newAPI import CCloud
 from get_vms import list_vms
 
 cc = CCloud()
@@ -16,9 +16,9 @@ def test():
     #cc.create_instance(flavor, image, nic, secgr, "sample2", token)
     #cc.create_instance(flavor, image, nic, secgr, "sample3", token)
 
-    sample_id = cc.get_server_id(token, "sample1")
+    #sample_id = cc.get_server_id(token, "sample1")
     #cc.delete_instance(sample_id, token)
 
-    list_vms(token)
+    #list_vms(token)
 
 test()

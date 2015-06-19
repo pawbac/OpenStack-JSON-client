@@ -5,7 +5,7 @@ from openstackclient import CCloud
 cc = CCloud()
 
 def list_vms(token):
-    print "------VMs LIST------"
+    print "------VMs LIST------\n"
     resp = cc.list_instances(token)
 
     if isinstance(resp, str): # Error message
@@ -13,15 +13,19 @@ def list_vms(token):
     elif resp['servers']: # Return instances
         n = 1
         for server in resp['servers']:
-            print "\nInstance %s" % n
+            print "Instance %s" % n
             print "Status: %s" % (server['status'])
             print "Instance ID: %s" % (server['id'])
             print "Tenant ID: %s" % (server['tenant_id'])
             print "Name: %s" % (server['name'])
             print "Task: %s" % (server['OS-EXT-STS:task_state'])
-            print "VM State: %s" % (server['OS-EXT-STS:vm_state'])
+            print "VM State: %s\n" % (server['OS-EXT-STS:vm_state'])
             n += 1
     else:
-        print "No instances launched"
+        print "No instances launched\n"
 
     return resp
+
+if __name__ == "__main__":
+    token = cc.get_tokens()
+    list_vms(token)
